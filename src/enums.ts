@@ -1,7 +1,8 @@
 export enum ViewMode {
     Day,
     Week,
-    Month
+    Month,
+    fourday
 }
 
 export enum MonthOfYear {

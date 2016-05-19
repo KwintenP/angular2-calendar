@@ -7,10 +7,11 @@ import {ViewMode} from "../enums";
 import {WeekView} from "../components/week-view.component.ts";
 import {DayView} from "../components/day-view.component";
 import {CalendarModel} from "../models/calendar.model";
+import {FourDayComponent} from "../components/four-day-view.component";
 @Component({
     selector: "calendar",
     providers: [CalendarModel],
-    directives: [MonthView, WeekView, DayView],
+    directives: [MonthView, WeekView, DayView, FourDayComponent],
     template: `
     <div class="container">
         <div class="row">
@@ -20,6 +21,7 @@ import {CalendarModel} from "../models/calendar.model";
                 <button class="btn btn-default" (click)="setViewMode(0)">Day</button>
                 <button class="btn btn-default" (click)="setViewMode(1)">Week</button>
                 <button class="btn btn-default" (click)="setViewMode(2)">Month</button>
+                <button class="btn btn-default" (click)="setViewMode(3)">4 Days</button>
             </div>
         </div>
         <div class="row">
@@ -33,6 +35,7 @@ import {CalendarModel} from "../models/calendar.model";
                 <day-view *ngIf="(viewMode$|async) === 0" [day]="dayOverview$|async"
                     (addAppointment)="addAppointment($event)" (removeAppointment)="removeAppointment($event)" 
                     (updateAppointment)="updateAppointment($event)"></day-view>
+                 <four-day-view *ngIf="(viewMode$|async) === 3"></four-day-view>
             </div>
         </div>
     </div>
@@ -77,6 +80,8 @@ export class Calendar implements OnInit {
             });
             return dayWithAppointments;
         });
+
+    public fourDayOverview$: Observable<DayWithAppointments> = Observable.combineLatest(this.)
 
     constructor(private model: CalendarModel) {
     }
